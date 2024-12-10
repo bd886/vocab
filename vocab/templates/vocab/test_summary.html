@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% block title %}Testergenis{% endblock %}
+
+{% block content %}
+    <h1 class="title">Testergebnis</h1>
+
+    <div class="box">
+        <p class="has-text-weight-semibold">Kategorie: 
+            {% if test.category %}
+                {{ test.category.name }}
+            {% else %}
+                Alle
+            {% endif %}
+        </p>
+        <p class="has-text-weight-semibold">Richtige Antworten: {{ test.correct_answers }}</p>
+        <p class="has-text-weight-semibold">Falsche Antworten: {{ test.wrong_answers }}</p>
+        <h2 class="subtitle mt-4">Detailergebnisse:</h2>
+        <ul>
+            {% for result in test.vocab_results.all %}
+                <li class="has-text-weight-medium">
+                    {{ result.vocabulary.german }} - {{ result.vocabulary.english }}: 
+                    {% if result.correct %}✅ Richtig{% else %}❌ Falsch{% endif %}
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+    <div align="center">
+        <a href="{% url 'index' %}" class="button is-success">Zurück zur Startseite</a>
+        <a href="{% url 'start_test' %}" class="button is-success">Neuen Test starten</a>
+    </div>
+{% endblock %}

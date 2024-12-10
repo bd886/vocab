@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <title>Lernen</title>
+    <script>
+        // Funktion zur Sprachausgabe
+        let voices = [];
+
+        // Stimmen laden
+        function loadVoices() {
+            voices = window.speechSynthesis.getVoices();
+            console.log(voices); // Liste der verfügbaren Stimmen in der Konsole
+        }
+
+        // Stimmen laden (Safari benötigt manchmal einen Timeout)
+        if (speechSynthesis.onvoiceschanged !== undefined) {
+            speechSynthesis.onvoiceschanged = loadVoices;
+        } else {
+            setTimeout(loadVoices, 100);
+        }
+
+        // Funktion zur Sprachausgabe
+        function speak(word) {
+            const utterance = new SpeechSynthesisUtterance(word);
+
+            // Sprache und Stimme einstellen
+            utterance.lang = 'en-US'; // Standardmäßig Englisch (US)
+            const voice = voices.find(v => v.lang === 'en-US' && v.name.includes('Eddy')); // Bevorzugte Stimme
+            if (voice) {
+                utterance.voice = voice;
+            }
+
+            // Text aussprechen
+            window.speechSynthesis.speak(utterance);
+        }
+    </script>
+</head>
+<body>
+    <h1>Vokabeln lernen</h1>
+
+    <form method="get" action="{% url 'learn_vocab' %}">
+        <label for="category">Kategorie wählen:</label>
+        <select name="category" id="category" onchange="this.form.submit()">
+            <option value="">-- Kategorie auswählen --</option>
+            <option value="all" {% if selected_category == "all" %}selected{% endif %}>Alle Kategorien</option>
+            {% for category in categories %}
+                <option value="{{ category.id }}" {% if category.id|stringformat:"s" == selected_category %}selected{% endif %}>
+                    {{ category.name }}
+                </option>
+            {% endfor %}
+        </select>
+    </form>
+
+    <ul>
+        {% if vocab_list %}
+            {% for vocab in vocab_list %}
+                <li>
+                    {{ vocab.german }} - {{ vocab.english }}
+                    (Bewertung: {{ vocab.rating }}/5)
+                    <button type="button" onclick="speak('{{ vocab.english }}')">🔊</button>
+                </li>
+            {% endfor %}
+        {% else %}
+            <p>Keine Vokabeln gefunden.</p>
+        {% endif %}
+    </ul>
+
+    <a href="{% url 'index' %}">Zurück zur Startseite</a>
+</body>
+</html>

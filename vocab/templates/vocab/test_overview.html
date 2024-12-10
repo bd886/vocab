@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+
+{% block title %}Testübersicht{% endblock %}
+
+{% block content %}
+
+<h1 class="title">Übersicht der Tests</h1>
+<div class="box has-text-weight-semibold">
+    <ul>
+        {% for test in page_obj.object_list %}
+            <li>
+                Test am {{ test.date|date:"d.m.Y H:i" }} 
+                {% if test.category %}
+                    (Kategorie: {{ test.category.name }})
+                {% else %}
+                    (Kategorie: Alle)
+                {% endif %}
+                - 
+                <a href="{% url 'test_summary' test.id %}">Details ansehen</a>
+            </li>
+        {% endfor %}
+    </ul>
+</div>    
+
+<!-- Paginierung -->
+<nav class="pagination is-centered" role="navigation" aria-label="pagination">
+        <ul class="pagination-list">
+            {% if page_obj.has_previous %}
+                <li><a href="?page=1" class="pagination-link">&laquo; Erste</a></li>
+                <li><a href="?page={{ page_obj.previous_page_number }}" class="pagination-link">Zurück</a></li>
+            {% endif %}
+
+            <li><span class="has-text-weight-bold">Seite {{ page_obj.number }} von {{ page_obj.paginator.num_pages }}</span></li>
+
+            {% if page_obj.has_next %}
+                <li><a href="?page={{ page_obj.next_page_number }}" class="pagination-link">Weiter</a></li>
+                <li><a href="?page={{ page_obj.paginator.num_pages }}" class="pagination-link">Letzte &raquo;</a></li>
+            {% endif %}
+        </ul>
+</nav>
+
+{% endblock %}

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Vokabeltrainer{% endblock %}</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.2/css/bulma.min.css">
+    <style>
+        .Site {
+            display: flex;
+            min-height: 100vh;
+            flex-direction: column;
+        }
+
+        .Site-content {
+            flex: 1;
+        }
+    </style>
+</head>
+<body class="Site">
+    <!-- Navbar -->
+    <nav class="navbar has-shadow">
+        <div class="navbar-brand">
+            <a class="navbar-item" href="{% url 'index' %}">
+                <strong>Vokabeltrainer</strong>
+            </a>
+        </div>
+        <div id="navbarMenu" class="navbar-menu">
+            <div class="navbar-start">
+            </div>
+        </div>
+        <div class="navbar-end">
+            {% if user.is_authenticated %}
+                <a class="navbar-item" href="{% url 'logout' %}">Abmelden</a>
+            {% endif %}
+        </div>
+    </nav>
+
+    <!-- Hauptinhalt -->
+    <section class="section Site-content">
+        <div class="container">
+            {% block content %}
+            <!-- Hier wird der Inhalt der Child-Templates eingefügt -->
+            {% endblock %}
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="content has-text-centered">
+            <p>© 2024 Björn Daub. Alle Rechte vorbehalten.</p>
+        </div>
+    </footer>
+
+</body>
+</html>

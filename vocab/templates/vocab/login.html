@@ -1,0 +1,32 @@
+
+{% extends 'base.html' %}
+
+{% block title %}Login - Vokabeltrainer{% endblock %}
+
+{% block content %}
+
+<h1 class="title">Anmelden</h1>
+{% if error %}
+    <div class="notification is-danger">
+        {{ error }}
+    </div>
+{% endif %}
+<form method="post">
+    {% csrf_token %}
+    <div class="field">
+        <label class="label">Benutzername</label>
+        <div class="control">
+            <input class="input" type="text" name="username" placeholder="Benutzername">
+        </div>
+    </div>
+    <div class="field">
+        <label class="label">Passwort</label>
+        <div class="control">
+            <input class="input" type="password" name="password" placeholder="Passwort">
+        </div>
+    </div>
+    <div class="control">
+        <button type="submit" class="button is-primary">Anmelden</button>
+    </div>
+</form>
+{% endblock %}

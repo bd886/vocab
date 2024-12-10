@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block title %}Startseite - Vokabeltrainer{% endblock %}
+
+{% block content %}
+<h1 class="title">Hallo Großer!</h1>
+<p class="subtitle">Lernen? Test starten? Let`s go!</p>
+
+<div class="box" align="center">
+    <p>
+        <a class="button is-primary" href="{% url 'learn_vocab' %}">Lernen</a>
+        <a class="button is-primary" href="{% url 'start_test' %}">Test starten</a>
+    </p>
+    <p class="mt-4">
+        <a class="button is-link" href="{% url 'test_overview' %}">Testübersicht</a>
+    </p>
+</div>
+
+<div class="box" align="center">
+    <p>
+        <a class="button is-info" href="{% url 'add_vocab' %}">Vokabeln hinzufügen</a>
+        <a class="button is-info" href="{% url 'add_category' %}">Kategorie hinzufügen</a>
+    </p>
+</div>
+
+{% endblock %}

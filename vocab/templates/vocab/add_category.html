@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block title %}Kategorie hinzufügen{% endblock %}
+
+{% block content %}
+<h1 class="title">Kategorie hinzufügen</h1>
+<div class="box">
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button class="button is-info mt-4"type="submit">Kategorie speichern</button>
+    </form>
+</div>
+<div align="center">
+    <a href="{% url 'index' %}" class="button is-success">Zurück zur Startseite</a>
+    <a href="{% url 'add_vocab' %}" class="button is-info">Neue Vokabel hinzufügen</a>
+</div>
+{% endblock %}

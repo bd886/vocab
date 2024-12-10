@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% block title %}Test starten{% endblock %}
+
+{% block content %}
+<h1 class="title">Test starten - viel Erfolg!</h1>
+<div class="box" align="center">
+    <form method="post">
+        {% csrf_token %}
+        <div class="field">
+            <label class="label">Kategorie wählen:</label>
+            <div class="control">
+                <div class="select is-success">
+                    <select name="category">
+                        <option value="all">Alle Kategorien</option>
+                        {% for category in categories %}
+                            <option value="{{ category.id }}">{{ category.name }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="control">
+            <button type="submit" class="button is-success">Looooos</button>
+        </div>
+    </form>
+</div>
+{% endblock %}

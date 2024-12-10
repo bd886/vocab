@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block title %}Test läuft{% endblock %}
+
+{% block content %}
+<h1 class="title">Test</h1>
+<div class="box" align="center">
+    <p>Übersetze: <strong>{{ vocab.german }}</strong></p>
+    <p>Bewertung: <progress class="progress is-success has-text-left mt-2 mb-4" value="{{ vocab.rating }}" max="5"></progress></p>
+    <form method="post" autocomplete="off"> <!-- Verhindert Autofill -->
+        {% csrf_token %}
+        <input type="hidden" name="question_id" value="{{ vocab.id }}">
+        <input class="input is-info" type="text" name="answer" autocomplete="off"> <!-- Verhindert Autofill -->
+        <button type="submit" class="button is-success mt-4">Antworten</button>
+    </form>
+</div>
+{% endblock %}

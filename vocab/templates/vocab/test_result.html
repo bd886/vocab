@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+
+{% block title %}Testergenis{% endblock %}
+
+{% block content %}
+    {% if correct %}
+        <p>Richtig! Deine Antwort: {{ vocab.english }}</p>
+    {% else %}
+        <p>Falsch! Die richtige Antwort ist: {{ vocab.english }}</p>
+    {% endif %}
+    <p>Aktuelle Bewertung: {{ vocab.rating }}/5</p>
+    <a href="{% url 'test_vocab' %}">Nächste Frage</a>
+{% endblock %}

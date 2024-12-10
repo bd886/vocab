@@ -1,0 +1,9 @@
+<h1>Test</h1>
+<p>Übersetze: <strong>{{ vocab.german }}</strong></p>
+<p>Bewertung: {{ vocab.rating }}/5</p>
+<form method="post">
+    {% csrf_token %}
+    <input type="hidden" name="question_id" value="{{ vocab.id }}">
+    <input type="text" name="answer">
+    <button type="submit">Antworten</button>
+</form>
